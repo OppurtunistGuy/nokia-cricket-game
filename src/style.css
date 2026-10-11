@@ -1,0 +1,222 @@
+:root {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  color: #e8ebce;
+  background: #172821;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 50% 30%, #294434 0, #172821 65%);
+  min-height: 100vh;
+}
+button,
+select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+button:focus-visible,
+select:focus-visible {
+  outline: 3px solid #dced8b;
+  outline-offset: 4px;
+}
+#app {
+  max-width: 1000px;
+  margin: auto;
+  padding: 25px 30px;
+}
+header,
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #a5b49e;
+}
+.brand {
+  font-size: 17px;
+  font-weight: 900;
+  color: #dcea9e;
+}
+header {
+  border-bottom: 1px solid #405446;
+  padding-bottom: 20px;
+}
+main {
+  max-width: 410px;
+  margin: 40px auto;
+}
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #b9cc8c;
+}
+h1 {
+  font-size: 38px;
+  letter-spacing: -2px;
+  margin: 12px 0 24px;
+}
+h1 span {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: #9bb094;
+  margin-top: 8px;
+}
+.phone {
+  background: #c8cfb4;
+  padding: 19px;
+  border-radius: 24px 24px 42px 42px;
+  border: 3px solid #899a80;
+  box-shadow:
+    0 20px 50px #07170c88,
+    inset 0 0 0 3px #e0e4cd;
+  color: #233627;
+}
+.phone-top {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 0 5px 14px;
+  letter-spacing: 2px;
+}
+#game {
+  background: #638554;
+  border: 7px solid #33493c;
+  border-radius: 4px;
+  aspect-ratio: 96/68;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: pixelated;
+}
+.status {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+#message {
+  min-height: 45px;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 10px 0;
+}
+label {
+  font-size: 9px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+select {
+  background: #e3e8d1;
+  border: 1px solid #8e9d83;
+  padding: 8px;
+  color: #233627;
+  font-size: 12px;
+}
+.primary {
+  width: 100%;
+  background: #263e2c;
+  color: #e7efc4;
+  border: 0;
+  border-radius: 5px;
+  padding: 13px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 0 #142619;
+}
+.primary:active,
+.keypad button:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.keypad button {
+  border: 1px solid #9baa91;
+  background: linear-gradient(#e8ebdd, #b7c3a6);
+  color: #263e2c;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 3px 0 #8c9d7c;
+  touch-action: manipulation;
+}
+.keypad b {
+  font-size: 22px;
+  display: block;
+}
+.keypad small {
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+.phone-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 3px 0;
+}
+.phone-bottom button {
+  border: 0;
+  background: none;
+  color: #455f43;
+  font-size: 8px;
+  letter-spacing: 1px;
+  padding: 5px;
+}
+.guide {
+  margin: 24px 10px;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #a7bba1;
+}
+.guide > span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #d5e6ac;
+}
+.guide b {
+  color: #d5e6ac;
+}
+footer {
+  padding: 20px 0;
+  border-top: 1px solid #405446;
+  font-size: 8px;
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 480px) {
+  #app {
+    padding: 18px;
+  }
+  main {
+    margin: 28px auto;
+  }
+  h1 {
+    font-size: 32px;
+  }
+  .edition {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  .phone {
+    padding: 15px;
+  }
+}

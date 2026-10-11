@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#172821" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <title>Cricket Cup</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <span class="brand">CC / 05</span
+        ><span class="edition">THE NOSTALGIA PROJECT</span>
+      </header>
+      <main>
+        <div class="intro">
+          <span class="eyebrow">POCKET-SIZED CRICKET</span>
+          <h1>Cricket Cup<span>One more over.</span></h1>
+        </div>
+        <section class="phone" aria-label="Cricket Cup game">
+          <div class="phone-top">
+            <span>CRICKET CUP</span><span>▮▮▮ ▰</span>
+          </div>
+          <div id="game" aria-label="Pixel cricket pitch"></div>
+          <div class="status">
+            <span id="phase">QUICK MATCH</span
+            ><span id="score">2 OVERS · 2 WICKETS</span>
+          </div>
+          <div id="message" role="status" aria-live="polite">
+            Choose your team. The cup is waiting.
+          </div>
+          <div id="menu">
+            <label
+              >YOUR TEAM<select id="team">
+                <option>INDIA</option>
+                <option>AUSTRALIA</option>
+                <option>ENGLAND</option>
+                <option>PAKISTAN</option>
+                <option>SOUTH AFRICA</option>
+                <option>NEW ZEALAND</option>
+              </select></label
+            ><button id="start" class="primary">PLAY QUICK MATCH ↗</button>
+          </div>
+          <div id="play" hidden>
+            <div class="keypad">
+              <button data-key="4"><b>4</b><small>LEFT</small></button
+              ><button data-key="5">
+                <b>5</b><small id="action-label">SHOT</small></button
+              ><button data-key="6"><b>6</b><small>RIGHT</small></button>
+            </div>
+            <button id="next" class="primary" hidden>NEXT BALL ↗</button>
+          </div>
+          <div class="phone-bottom">
+            <button id="sound" aria-pressed="false">SOUND OFF</button
+            ><button id="reset">NEW MATCH</button>
+          </div>
+        </section>
+        <div class="guide">
+          <span>HOW TO PLAY</span>
+          <p>
+            <b>4 / 6</b> choose direction. <b>5 / Space</b> swing when the ball
+            reaches the batter. Bowl by stopping the moving meter near its
+            centre.
+          </p>
+          <p>Two overs. Two wickets. Bat first, then defend your total.</p>
+        </div>
+      </main>
+      <footer>
+        <span>EST. 2005 IN SPIRIT</span><span>NO DOWNLOAD. JUST PLAY.</span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
