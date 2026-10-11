@@ -89,3 +89,14 @@ test("twelve legal deliveries end the batting innings", async ({ page }) => {
   }
   await expect(page.locator("#message")).toContainText("Time to bowl");
 });
+
+test("page stylesheet and game initialize together", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".phone")).toHaveCSS(
+    "background-color",
+    "rgb(200, 207, 180)",
+  );
+  await expect(page.locator("canvas")).toBeVisible();
+  await expect(page.locator("#boot-status")).toHaveCount(0);
+  await expect(page.locator("#start")).toBeEnabled();
+});

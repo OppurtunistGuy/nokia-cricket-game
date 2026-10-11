@@ -20,7 +20,7 @@ Node.js 22 or newer recommended; this environment was verified with Node 24.
 
 ```sh
 npm ci --cache /tmp/cricket-npm
-npm run dev
+npm run dev -- --port 5175 --strictPort
 ```
 
 ```sh
@@ -31,6 +31,10 @@ npm test
 The production output is `dist/`. `npm run preview` serves it for local verification. Browser tests use `/usr/bin/chromium`; set `CHROMIUM_PATH` to another installed Chromium executable when needed.
 
 The production service worker caches all game assets after the initial online load. Later reloads work offline. Development mode deliberately does not register it. Android embeds the assets and does not require an initial network load.
+
+## If CSS or the pitch is missing
+
+Use the Vite terminal command above and open the address it prints. Do not open `index.html` directly or use VS Code **Go Live / Live Server**: those serve raw TypeScript without compiling it, preventing the game from starting. Use port 5175 to avoid other projects on ports 5173 and 5174. If the browser has a service worker from another project on the same port, use a new port or clear that site's storage in browser developer tools.
 
 ## Android
 

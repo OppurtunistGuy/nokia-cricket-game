@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#172821" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="stylesheet" href="/src/style.css" />
     <title>Cricket Cup</title>
   </head>
   <body>
@@ -26,7 +27,9 @@
           <div class="phone-top">
             <span>CRICKET CUP</span><span>▮▮▮ ▰</span>
           </div>
-          <div id="game" aria-label="Pixel cricket pitch"></div>
+          <div id="game" aria-label="Pixel cricket pitch">
+            <p id="boot-status" role="status">Starting Cricket Cup…</p>
+          </div>
           <div class="status">
             <span id="phase">QUICK MATCH</span
             ><span id="score">2 OVERS · 2 WICKETS</span>
@@ -44,7 +47,9 @@
                 <option>SOUTH AFRICA</option>
                 <option>NEW ZEALAND</option>
               </select></label
-            ><button id="start" class="primary">PLAY QUICK MATCH ↗</button>
+            ><button id="start" class="primary" disabled>
+              PLAY QUICK MATCH ↗
+            </button>
           </div>
           <div id="play" hidden>
             <div class="keypad">
@@ -74,6 +79,14 @@
         <span>EST. 2005 IN SPIRIT</span><span>NO DOWNLOAD. JUST PLAY.</span>
       </footer>
     </div>
+    <script>
+      setTimeout(() => {
+        const status = document.getElementById("boot-status");
+        if (status)
+          status.textContent =
+            "Game did not start. In the project terminal, run npm ci, then npm run dev. Open the address Vite prints. VS Code Live Server cannot run this TypeScript game.";
+      }, 5000);
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

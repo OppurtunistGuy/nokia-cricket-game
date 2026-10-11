@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import "./style.css";
 type Stage =
   "menu" | "ready" | "delivery" | "flight" | "result" | "innings" | "finished";
 const $ = <T extends HTMLElement>(id: string) =>
@@ -242,6 +241,8 @@ class CricketScene extends Phaser.Scene {
   label!: Phaser.GameObjects.Text;
   sub!: Phaser.GameObjects.Text;
   create() {
+    document.getElementById("boot-status")?.remove();
+    $("start").removeAttribute("disabled");
     this.g = this.add.graphics();
     this.label = this.add
       .text(48, 5, "CRICKET CUP", {

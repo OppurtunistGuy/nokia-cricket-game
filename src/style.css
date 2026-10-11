@@ -220,3 +220,23 @@ footer {
     padding: 15px;
   }
 }
+
+#game {
+  position: relative;
+}
+#boot-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  margin: 0;
+  padding: 20px;
+  color: #edf0be;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
