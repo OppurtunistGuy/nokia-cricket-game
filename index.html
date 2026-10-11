@@ -6,85 +6,184 @@
       name="viewport"
       content="width=device-width,initial-scale=1,viewport-fit=cover"
     />
-    <meta name="theme-color" content="#172821" />
+    <meta name="theme-color" content="#0b1217" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="stylesheet" href="/src/style.css" />
-    <title>Cricket Cup</title>
+    <title>Cricket Cup — Under the lights</title>
   </head>
   <body>
     <div id="app">
-      <header>
-        <span class="brand">CC / 05</span
-        ><span class="edition">THE NOSTALGIA PROJECT</span>
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Cricket Cup home"
+          ><span class="brand-mark">C<span>C</span></span
+          ><span>CRICKET CUP<small>THE NOSTALGIA PROJECT</small></span></a
+        >
+        <div class="top-meta">
+          <span class="live-dot"></span> UNDER THE LIGHTS
+          <span class="version">VOL. 01</span>
+        </div>
+        <button id="sound" class="icon-button" aria-pressed="false">
+          SOUND OFF
+        </button>
       </header>
       <main>
-        <div class="intro">
-          <span class="eyebrow">POCKET-SIZED CRICKET</span>
-          <h1>Cricket Cup<span>One more over.</span></h1>
+        <div class="session-heading">
+          <div>
+            <span class="eyebrow">ARCADE CRICKET / REIMAGINED</span>
+            <h1>Small game. <em>Big moments.</em></h1>
+          </div>
+          <div class="match-format">
+            <b>02</b><span>OVERS<br />ALL YOU NEED.</span>
+          </div>
         </div>
-        <section class="phone" aria-label="Cricket Cup game">
-          <div class="phone-top">
-            <span>CRICKET CUP</span><span>▮▮▮ ▰</span>
-          </div>
-          <div id="game" aria-label="Pixel cricket pitch">
-            <p id="boot-status" role="status">Starting Cricket Cup…</p>
-          </div>
-          <div class="status">
-            <span id="phase">QUICK MATCH</span
-            ><span id="score">2 OVERS · 2 WICKETS</span>
-          </div>
-          <div id="message" role="status" aria-live="polite">
-            Choose your team. The cup is waiting.
-          </div>
-          <div id="menu">
-            <label
-              >YOUR TEAM<select id="team">
+        <div class="game-layout">
+          <section class="arena" aria-label="Cricket Cup game">
+            <div class="match-hud">
+              <div class="team-hud">
+                <span id="phase">QUICK MATCH</span
+                ><strong id="team-name">INDIA <span>vs</span> AUSTRALIA</strong>
+              </div>
+              <div class="score-hud">
+                <strong id="runs">0<span>/0</span></strong>
+                <div><span id="over">0.0</span><small>OF 2 OVERS</small></div>
+              </div>
+            </div>
+            <div id="game" aria-label="Perspective cricket stadium">
+              <p id="boot-status" role="status">Preparing the stadium…</p>
+            </div>
+            <div class="scene-label">
+              <span class="live-dot"></span
+              ><span id="camera-label">THE PAVILION · NIGHT SESSION</span
+              ><span id="aim-label">STRAIGHT</span>
+            </div>
+            <div id="menu" class="menu-overlay">
+              <span class="eyebrow">A CLASSIC. A NEW INNINGS.</span>
+              <h2>ONE MORE<br /><i>OVER.</i></h2>
+              <p>
+                The feeling you remember.<br />The match you can't put down.
+              </p>
+              <button id="start" class="primary" disabled>
+                NEW GAME
+                <span aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <path d="M5 19 19 5M5 5h14v14" /></svg
+                ></span>
+              </button>
+              <div class="menu-links">
+                <button id="instructions">HOW TO PLAY</button
+                ><button id="high-scores">YOUR BEST</button>
+              </div>
+              <div id="menu-detail" hidden role="status"></div>
+            </div>
+            <div id="result-banner" hidden aria-live="polite">
+              <span id="result-kicker">DELIVERY RESULT</span
+              ><strong id="result-title"></strong
+              ><span id="result-detail"></span>
+            </div>
+            <div id="timing" hidden>
+              <div class="timing-head">
+                <span id="timing-title">SHOT TIMING</span
+                ><span id="timing-hint">WAIT FOR THE CREASE</span>
+              </div>
+              <div class="timing-track">
+                <span class="sweet-spot"></span><span id="timing-marker"></span>
+              </div>
+            </div>
+            <div class="arena-bottom">
+              <span id="message" role="status" aria-live="polite"
+                >Choose your team. Make the night yours.</span
+              ><span class="arena-tag">NIGHT CUP / 2026</span>
+            </div>
+          </section>
+          <aside class="dugout">
+            <div class="panel-header">
+              <span class="eyebrow">THE DUGOUT</span
+              ><span class="panel-number">01 / 02</span>
+            </div>
+            <div id="team-settings">
+              <label for="team">YOUR SIDE</label
+              ><select id="team">
                 <option>INDIA</option>
                 <option>AUSTRALIA</option>
                 <option>ENGLAND</option>
                 <option>PAKISTAN</option>
                 <option>SOUTH AFRICA</option>
-                <option>NEW ZEALAND</option>
-              </select></label
-            ><button id="start" class="primary" disabled>
-              PLAY QUICK MATCH ↗
-            </button>
-          </div>
-          <div id="play" hidden>
-            <div class="keypad">
-              <button data-key="4"><b>4</b><small>LEFT</small></button
-              ><button data-key="5">
-                <b>5</b><small id="action-label">SHOT</small></button
-              ><button data-key="6"><b>6</b><small>RIGHT</small></button>
+                <option>NEW ZEALAND</option></select
+              ><label for="difficulty">LEVEL</label
+              ><select id="difficulty">
+                <option value="club">CLUB · BALANCED</option>
+                <option value="rookie">ROOKIE · RELAXED</option>
+                <option value="pro">PRO · QUICK HANDS</option>
+              </select>
             </div>
-            <button id="next" class="primary" hidden>NEXT BALL ↗</button>
-          </div>
-          <div class="phone-bottom">
-            <button id="sound" aria-pressed="false">SOUND OFF</button
-            ><button id="reset">NEW MATCH</button>
-          </div>
-        </section>
-        <div class="guide">
-          <span>HOW TO PLAY</span>
-          <p>
-            <b>4 / 6</b> choose direction. <b>5 / Space</b> swing when the ball
-            reaches the batter. Bowl by stopping the moving meter near its
-            centre.
-          </p>
-          <p>Two overs. Two wickets. Bat first, then defend your total.</p>
+            <div class="innings-info">
+              <span id="match-task">BAT FIRST. SET THE STANDARD.</span>
+              <p id="target-info">
+                Two overs. Two wickets.<br />One shot at a great innings.
+              </p>
+            </div>
+            <div id="play" hidden>
+              <div class="direction-caption">
+                CHOOSE YOUR LINE <span>4 / 6</span>
+              </div>
+              <div class="keypad">
+                <button data-key="4" aria-label="Aim left">
+                  <span aria-hidden="true"
+                    ><svg viewBox="0 0 24 24">
+                      <path d="M19 19 5 5M5 19V5h14" /></svg></span
+                  ><small>LEFT · 4</small></button
+                ><button data-key="6" aria-label="Aim right">
+                  <span aria-hidden="true"
+                    ><svg viewBox="0 0 24 24">
+                      <path d="M5 19 19 5M5 5h14v14" /></svg></span
+                  ><small>RIGHT · 6</small>
+                </button>
+              </div>
+              <button data-key="5" id="action" class="action-button">
+                <span id="action-label">PLAY SHOT</span
+                ><kbd>SPACE / 5</kbd></button
+              ><button id="next" class="primary" hidden>
+                START DELIVERY
+                <span aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <path d="M5 19 19 5M5 5h14v14" /></svg
+                ></span>
+              </button>
+            </div>
+            <div class="over-history">
+              <div class="direction-caption">
+                THIS OVER <span id="balls-left">12 BALLS LEFT</span>
+              </div>
+              <div id="history">
+                <span>–</span><span>–</span><span>–</span><span>–</span
+                ><span>–</span><span>–</span>
+              </div>
+            </div>
+            <div class="controls-note">
+              <span class="shortcut">↵</span>
+              <p>
+                <b>Enter</b> starts the next ball.<br />Time your shot at the
+                crease.
+              </p>
+            </div>
+            <button id="reset" class="text-button">↶ RETURN TO PAVILION</button
+            ><span id="score" class="sr-only">2 OVERS · 2 WICKETS</span>
+          </aside>
         </div>
+        <footer>
+          <span
+            ><span class="live-dot"></span> OFFLINE READY AFTER FIRST LOAD</span
+          ><span>BUILT FOR ONE MORE MATCH.</span><span>KEYBOARD + TOUCH</span>
+        </footer>
       </main>
-      <footer>
-        <span>EST. 2005 IN SPIRIT</span><span>NO DOWNLOAD. JUST PLAY.</span>
-      </footer>
     </div>
     <script>
       setTimeout(() => {
-        const status = document.getElementById("boot-status");
-        if (status)
-          status.textContent =
-            "Game did not start. In the project terminal, run npm ci, then npm run dev. Open the address Vite prints. VS Code Live Server cannot run this TypeScript game.";
+        const s = document.getElementById("boot-status");
+        if (s)
+          s.textContent =
+            "Game did not start. Run npm ci, then npm run dev in the project terminal. Open the Vite address.";
       }, 5000);
     </script>
     <script type="module" src="/src/main.ts"></script>

@@ -1,6 +1,6 @@
 # Cricket Cup — The Nostalgia Project
 
-A complete two-over cricket match, built with Phaser and TypeScript. Original pixel graphics run on a 96 × 68 logical canvas with crisp scaling. Browser and Android use the same game.
+A complete two-over cricket match, built with Phaser and TypeScript. The uploaded Nokia footage informs a perspective batting camera and a separate overhead fielding camera. Original procedural artwork runs on a 960 × 720 canvas with stadium lighting, shaded players, pitch wear, and a modern HUD. Browser and Android use the same game.
 
 ## Play
 
@@ -12,7 +12,7 @@ Select your team and play a quick match. Bat first, then defend your total.
 - Time a batting shot as the ball reaches the crease. Better timing scores more runs; a badly mistimed or missed shot can cost a wicket.
 - When bowling, stop the meter near its centre to improve your chance of dots and wickets. AI outcomes have some randomness.
 
-Each innings has 12 legal deliveries or two wickets. Running and fielding are automatic. No extras or manual running. Chasing the target ends the match immediately; equal totals are a draw. Sound is optional and starts muted.
+Each innings has 12 legal deliveries or two wickets. Running and fielding are automatic. No extras or manual running. Chasing the target ends the match immediately; equal totals are a draw. Sound is optional and starts muted. Rookie, Club, and Pro levels change delivery speed and batting forgiveness. Completed batting innings save a personal best on this device.
 
 ## Develop
 
@@ -28,7 +28,7 @@ npm run build
 npm test
 ```
 
-The production output is `dist/`. `npm run preview` serves it for local verification. Browser tests use `/usr/bin/chromium`; set `CHROMIUM_PATH` to another installed Chromium executable when needed.
+The production output is `dist/`. `npm run preview` serves it for local verification. Browser tests use `/usr/bin/chromium` when available, or Playwright’s installed Chromium otherwise. On a new local machine, run `npx playwright install chromium` once before `npm test`; `CHROMIUM_PATH` can select another installed Chromium.
 
 The production service worker caches all game assets after the initial online load. Later reloads work offline. Development mode deliberately does not register it. Android embeds the assets and does not require an initial network load.
 
@@ -52,8 +52,8 @@ Set `JAVA_HOME`, `ANDROID_HOME`, and a writable `GRADLE_USER_HOME` for your mach
 
 ## Layout
 
-- `src/main.ts`: match state, input, timing, scoring, and pixel scene.
-- `src/style.css`: portrait phone shell and touch controls.
+- `src/main.ts`: match state, input, timing, scoring, and both stadium cameras.
+- `src/style.css`: responsive stadium layout, HUD, and touch controls.
 - `scripts/offline.mjs`: production asset cache generation.
 - `tests/game.spec.ts`: real-browser match, input, innings, and offline checks.
 

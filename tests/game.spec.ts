@@ -42,6 +42,7 @@ test("touch shot scores runs and keyboard controls work", async ({ page }) => {
   await page.locator("#next").click();
   await page.waitForTimeout(1500);
   await page.locator('[data-key="5"]').click();
+  await expect(page.locator("body")).toHaveAttribute("data-camera", "fielding");
   await expect(page.locator("#score")).toHaveText(/^[1246]\/0/);
   await page.keyboard.press("Enter");
   await expect(page.locator("body")).toHaveAttribute("data-stage", "delivery");
@@ -88,15 +89,42 @@ test("twelve legal deliveries end the batting innings", async ({ page }) => {
     );
   }
   await expect(page.locator("#message")).toContainText("Time to bowl");
+  const total = (await page.locator("#runs").textContent())!.split("/")[0];
+  await page.locator("#reset").click();
+  await page.locator("#high-scores").click();
+  await expect(page.locator("#menu-detail")).toContainText(`${total} RUNS`);
 });
 
 test("page stylesheet and game initialize together", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".phone")).toHaveCSS(
+  await expect(page.locator(".dugout")).toHaveCSS(
     "background-color",
-    "rgb(200, 207, 180)",
+    "rgb(17, 26, 32)",
   );
   await expect(page.locator("canvas")).toBeVisible();
   await expect(page.locator("#boot-status")).toHaveCount(0);
   await expect(page.locator("#start")).toBeEnabled();
+});
+
+test("mobile layout contains the menu and offers touch controls", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await expect(page.locator("#start")).toBeVisible();
+  const button = await page.locator("#start").boundingBox(),
+    game = await page.locator("#game").boundingBox();
+  expect(button!.y + button!.height).toBeLessThan(game!.y + game!.height);
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth),
+  ).toBeLessThanOrEqual(390);
+  await page.locator("#start").click();
+  await expect(page.locator("#action")).toBeDisabled();
+  await page.locator("#next").click();
+  await expect(page.locator("#action")).toBeEnabled();
+  await page.locator('[data-key="6"]').click();
+  await expect(page.locator('[data-key="6"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
 });
