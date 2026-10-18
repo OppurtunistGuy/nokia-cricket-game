@@ -1,44 +1,45 @@
-# Cricket Cup — The Nostalgia Project
+# Cricket Cup — The Nostalgia Project · V0.3
 
-A complete two-over cricket match, built with Phaser and TypeScript. The uploaded Nokia footage informs a perspective batting camera and a separate overhead fielding camera. Original procedural artwork runs on a 960 × 720 canvas with stadium lighting, shaded players, pitch wear, and a modern HUD. Browser and Android use the same game.
+A browser and Android arcade cricket game with Nokia-inspired pixel graphics. Classic is the default; Advanced adds selectable shots, bowling variations, manual running, and controller input. Both modes share a single 128 × 128 pixel renderer and match engine. See [the V0.3 rules and controls](docs/GAMEPLAY_V0.3.md).
 
 ## Play
 
-Select your team and play a quick match. Bat first, then defend your total.
+Choose Classic or Advanced, your team, and whether running is automatic. Bat first, then defend your total: two overs and two wickets per side.
 
-- **4 / Left arrow** and **6 / Right arrow** choose shot or delivery direction.
-- **5 / Space** swings the bat or stops the bowling meter.
-- **Enter** starts the next delivery. The on-screen keypad supports touch.
-- Time a batting shot as the ball reaches the crease. Better timing scores more runs; a badly mistimed or missed shot can cost a wicket.
-- When bowling, stop the meter near its centre to improve your chance of dots and wickets. AI outcomes have some randomness.
+- Before delivery: arrows select shots (Advanced) or placement (Classic).
+- Space / 5 acts; Enter starts a ball. Time batting contact at the crease.
+- During fielding: Right runs, Down stops after the current run, Left turns back.
+- Advanced bowling: arrows select line/length, Q/E movement, S slower speed, B bouncer. Start the accuracy meter, then stop it with Space to release.
+- Standard controllers and context-sensitive touch controls provide the same actions.
 
-Each innings has 12 legal deliveries or two wickets. Running and fielding are automatic. No extras or manual running. Chasing the target ends the match immediately; equal totals are a draw. Sound is optional and starts muted. Rookie, Club, and Pro levels change delivery speed and batting forgiveness. Completed batting innings save a personal best on this device.
+Wides, catches, boundaries, completed runs, run-outs, and innings progression share the same rules in both modes. Classic enables Auto Shot and automatic running initially; Advanced defaults to manual running. No external game services or credentials are needed.
 
-## Develop
+## Run locally
 
-Node.js 22 or newer recommended; this environment was verified with Node 24.
+Use Node.js 22+ (verified here with Node 24). From this Git checkout:
 
 ```sh
-npm ci --cache /tmp/cricket-npm
+npm ci
 npm run dev -- --port 5175 --strictPort
 ```
 
+Open the address Vite prints. Do not open `index.html` directly or use VS Code Go Live / Live Server; TypeScript must run through Vite. If another project's service worker controls a reused port, choose a new port or clear that site's storage.
+
 ```sh
 npm run build
+npx playwright install chromium
 npm test
 ```
 
-The production output is `dist/`. `npm run preview` serves it for local verification. Browser tests use `/usr/bin/chromium` when available, or Playwright’s installed Chromium otherwise. On a new local machine, run `npx playwright install chromium` once before `npm test`; `CHROMIUM_PATH` can select another installed Chromium.
+Cloud tests reuse `/usr/bin/chromium` when available; set `CHROMIUM_PATH` to select another installed Chromium. Tests cover the rules engine, input adapter, browser play, identical mode graphics, mobile layout, and offline startup. Virtual controllers are tested; physical controller and Android device checks remain manual.
 
-The production service worker caches all game assets after the initial online load. Later reloads work offline. Development mode deliberately does not register it. Android embeds the assets and does not require an initial network load.
-
-## If CSS or the pitch is missing
-
-Use the Vite terminal command above and open the address it prints. Do not open `index.html` directly or use VS Code **Go Live / Live Server**: those serve raw TypeScript without compiling it, preventing the game from starting. Use port 5175 to avoid other projects on ports 5173 and 5174. If the browser has a service worker from another project on the same port, use a new port or clear that site's storage in browser developer tools.
+Production files are in `dist/`. Serve them over HTTP(S). Browser offline play works after the initial production load installs the asset cache. Android bundles assets for offline first launch. Development mode does not install a service worker.
 
 ## Android
 
-The Capacitor project is in `android/`. It requires JDK 21, Android SDK platform 36, and build tools 35.0.0 (the SDK also includes 36.0.0).
+Installable UAT build: [downloads/CricketCup-debug.apk](downloads/CricketCup-debug.apk). This is a debug build for testing, not a store release. Android 7.0+ is required.
+
+For local builds, install JDK 21, Android SDK platform 36, build tools 35.0.0, then:
 
 ```sh
 npm run android:sync
@@ -46,15 +47,16 @@ cd android
 ./gradlew assembleDebug --max-workers=2
 ```
 
-In this cloud environment, `npm run android:build` configures the retained SDK/JDK, proxy routing, and managed certificate trust store automatically.
+On Windows use `gradlew.bat assembleDebug --max-workers=2` in `android`. The output is `android/app/build/outputs/apk/debug/app-debug.apk`. Keep the same debug signing key to update a previously installed debug APK; changing keys requires uninstalling the old app and loses its local data.
 
-Set `JAVA_HOME`, `ANDROID_HOME`, and a writable `GRADLE_USER_HOME` for your machine. The debug APK is `android/app/build/outputs/apk/debug/app-debug.apk`. It is for local installation and testing, not a signed store release. A physical Android device has not been tested in this cloud machine.
+This cloud workspace retains its SDK/JDK and CA trust setup. `npm run android:build` rebuilds through `scripts/android-build.sh` using those tools. It uses the platform proxy and managed certificate store without disabling TLS verification.
 
-## Layout
+## Source
 
-- `src/main.ts`: match state, input, timing, scoring, and both stadium cameras.
-- `src/style.css`: responsive stadium layout, HUD, and touch controls.
-- `scripts/offline.mjs`: production asset cache generation.
-- `tests/game.spec.ts`: real-browser match, input, innings, and offline checks.
+- `src/engine.ts`: delivery physics, shot matchups, running, and match rules.
+- `src/view.ts`: shared pixel renderer and simple sprite poses.
+- `src/input.ts`: keyboard/keypad and edge-triggered standard controller mapping.
+- `src/main.ts`: UI, touch controls, pause, persistence, and input integration.
+- `tests/engine.spec.ts`, `tests/game.spec.ts`: rules and browser checks.
 
-Five-over mode and tournaments remain future extensions. This version focuses on a complete playable quick match.
+No-balls/LBW/byes, longer matches, and tournaments remain outside V0.3. Balance values are initial arcade tuning; physical-device playtesting is still needed.
